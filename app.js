@@ -39,13 +39,22 @@ app.use('/reset_password.htm', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'reset_password.htm'));
 });
 
+app.use('/signup.htm', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'signup.htm'));
+});
+app.use('/login.htm', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'login.htm'));
+});
+app.use('/forgetPassword.htm', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'forgetPassword.htm'));
+});
+app.use('/reset_password.htm', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'reset_password.htm'));
+});
 app.use('/addExpense.htm', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'addExpense.htm'));
 });
-app.use((req,res,next)=>{
-    console.log('urll',req.url)
-    res.sendFile(path.join(__dirname, `views/${req.url}`))
-})
+
 
 
 user.hasMany(expense)
