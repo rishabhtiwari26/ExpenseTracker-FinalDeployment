@@ -1,0 +1,73 @@
+exports.updateMembership=async (req,res,next)=>{
+    try{
+        console.log('inside updatemembership')
+        const {order_id,payment_id}=req.body
+        let transactionCommitted = false
+        // console.log(order_id,payment_id)
+        const t =await sequelize.transaction()
+        try{
+            const reqUser= await user.findOne({where:{id:decodedId(req.headers.authorization).userid}})
+            console.log(reqUser)
+            const newOrder=await order.findOne({where:{orderid:order_id}})
+            await newOrder.update({paymentid:payment_id,status:'SUCCESSFUL'},{transaction:t})
+            await reqUser.update({ispreiumuser:true},{transaction:t})
+            await reqUser.save({transaction:t})
+            await t.commit()
+            transactionCommitted=true
+            return res.status(202).json({sucess:true,message:'Transaction Successful',token:generateAccessToken(user.id,user.ispremiumuser)})
+    }catch(e){
+        if (!transactionCommitted){
+            await t.rollback()
+            // console.log('transaction failed',e)
+
+        }
+        console.log('transaction failed',e)
+    }
+            // .then(order=>{
+            //     order.update({paymentid:payment_id,status:'SUCCESSFUL'}).then(()=>{
+            //         user.findOne({where:{id:decodedId(req.headers.authorization).userid}})
+            //         .then((user)=>{
+            //             user.update({ispremiumuser:true}).then(()=>{
+            //                 return res.status(202).json({sucess:true,message:'Transaction Successful',token:generateAccessToken(user.id,user.ispremiumuser)})
+            //             }).catch(e=>{
+            //                 throw new Error(e)
+            //             })
+                        
+            //         }).catch(e=>{
+            //             throw new Error(e)
+            //         })
+                    
+            //     }).catch(e=>{
+            //         throw new Error(e)
+            //     })
+            // }).catch(e=>{
+            //     throw new Error(e)
+            // })
+           
+    }catch(e){
+        
+        console.log('inside updatemembership catch')
+        console.log(e)
+    }
+}
+
+
+
+
+ .then(expenseDetail=>{
+        user.findByPk(decodedId(req.headers.authorization).userid).then(user=>{
+            console.log('line 30 ',user)
+            user.update({totalAmount:user.totalAmount+parseFloat(req.body.amount)}).then(()=>{
+                user.save()
+            })
+        }).catch(e=>console.log(e))
+        console.log('Expense Created')
+        res.send(expenseDetail)
+    }).catch(err=>console.log(err))}
+    catch(e){
+        throw new Error(e)
+    }
+
+
+    
+    )
