@@ -43,7 +43,7 @@ exports.forgetPassword=async (req,res,next)=>{
                 Subject: 'OTP for password',
                 textContent:
                 `Please Click on the below link for reseting your password.
-                http://13.235.83.111/password/resetpassword/${newLink}`
+                http://13.201.166.92/password/resetpassword/${newLink}`
             }).then(()=>{
                 t.commit()
                 res.status(201).send('Email sent')
@@ -79,7 +79,7 @@ exports.resetPassword=(req,res,next)=>{
                             <script>
                                 function newf(){
                                     const password=document.getElementById('newpassword').value
-                                    const url='http://13.235.83.111/reset_password.htm?message=Reset%20your%20password"&token=${newtoken}&pass='+password
+                                    const url='http://13.201.166.92/reset_password.htm?message=Reset%20your%20password"&token=${newtoken}&pass='+password
                                     window.location.href= url
                                 }
                             </script>
